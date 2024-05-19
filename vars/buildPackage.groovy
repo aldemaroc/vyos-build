@@ -104,31 +104,6 @@ def call(description=null, pkgList=null, buildCmd=null, buildArm=false, changesP
                             }
                         }
                     }
-                    stage('arm64') {
-                        agent {
-                            docker {
-                                label "${buildLabel.replace('amd64', 'arm64')}"
-                                args "${env.DOCKER_ARGS}"
-                                image "${env.DOCKER_IMAGE}-arm64"
-                                alwaysPull true
-                                reuseNode true
-                            }
-                        }
-                        when {
-                            equals expected: true, actual: buildArm
-                        }
-                        steps {
-                            script {
-                                cloneAndBuild(description, 'arm64', pkgList, buildCmd)
-                                stash includes: '**/*arm64.deb', name: 'binary-arm64', allowEmpty: true
-                            }
-                        }
-                        post {
-                            cleanup {
-                                deleteDir()
-                            }
-                        }
-                    }
                 }
             }
             stage("Finalize") {
