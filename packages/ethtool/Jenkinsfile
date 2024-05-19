@@ -28,4 +28,4 @@ def pkgList = [
 ]
 
 // Start package build using library function from https://github.com/vyos/vyos-build
-buildPackage('ethtool', pkgList, null, true, "**/packages/ethtool/**")
+buildPackage('ethtool', pkgList, null, false, "**/packages/ethtool/**")
