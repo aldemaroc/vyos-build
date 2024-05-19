@@ -128,10 +128,6 @@ def call(description=null, pkgList=null, buildCmd=null, changesPattern="**") {
                             print "Unstashing failed, ignoring - no source packages"
                             currentBuild.result = 'SUCCESS'
                         }
-                        if (isCustomBuild()) {
-                            echo "Build not started from official Git repository! Artifacts are not uploaded to external repository"
-                            return
-                        }
                         echo "Uploading Artifacts to external repository"
                         copyArtifacts fingerprintArtifacts: true, projectName: '${JOB_NAME}', selector: specific('${BUILD_NUMBER}')
 
